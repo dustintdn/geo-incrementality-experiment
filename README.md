@@ -30,10 +30,13 @@ This project uses a **matched-market test** analyzed with **CausalImpact** (Goog
 git clone https://github.com/dustintdn/incrementality-causal-experiment-learning.git
 cd incrementality-causal-experiment-learning
 
-# 2. Install dependencies (Python 3.9+ recommended)
+# 2. Create and activate a virtual environment
+python -m venv .venv && source .venv/bin/activate
+
+# 3. Install dependencies (Python 3.9+ recommended)
 pip install -r requirements.txt
 
-# 3. Launch the notebook
+# 4. Launch the notebook
 jupyter notebook notebooks/geo_experiment_analysis.ipynb
 ```
 
