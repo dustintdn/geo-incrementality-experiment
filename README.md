@@ -39,8 +39,8 @@ This project uses a **matched-market test** analyzed with **CausalImpact** (Goog
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/dustintdn/incrementality-causal-experiment-learning.git
-cd incrementality-causal-experiment-learning
+git clone https://github.com/dustintdn/geo-incrementality-experiment.git
+cd geo-incrementality-experiment
 
 # 2. Create and activate a virtual environment
 python -m venv .venv && source .venv/bin/activate
