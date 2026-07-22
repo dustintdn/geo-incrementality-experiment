@@ -6,11 +6,9 @@ A marketing campaign ran in a set of treatment markets while comparable control 
 
 ## Data
 
-The analysis uses the example geo experiment dataset published with Google's [matched_markets](https://github.com/google/matched_markets) measurement framework: daily sales for **100 geos** (Jan 5 – Apr 7, 2015) with a designed treatment/control assignment — **50 treatment geos received $50,000 of ad spend between Feb 16 and Mar 15, 2015**, and 50 control geos received none. Because the dataset includes campaign cost, the ROAS estimate is computed from the data rather than assumed. Both CSVs are checked into `data/`, so no download is needed.
+Since real geo-incrementality tests run on advertiser sales data, which is proprietary, this analysis uses the example geo experiment dataset published with Google's [matched_markets](https://github.com/google/matched_markets) measurement framework.
 
-### Why this dataset?
-
-Real geo-incrementality tests run on advertiser sales data, which is proprietary — no company publishes theirs. That leaves three options for a public analysis: simulate your own data (the pipeline is then guaranteed to work by construction), retrofit a "natural experiment" onto public data like state-level sales (no randomized assignment, no spend data, and the intervention is chosen after the fact), or use one of the few reference datasets published by the teams that build geo-measurement tooling. This project takes the third path: the matched_markets example data is the rare public dataset with a *designed* experiment — randomized geo assignment, a defined spend window, and actual cost figures — which are exactly the properties the method requires. Simulation still appears in this project, but only where it belongs: in the validation chapter, where a known ground truth is the point.
+Daily sales for **100 geos** (Jan 5 – Apr 7, 2015) with a designed treatment/control assignment — **50 treatment geos received $50,000 of ad spend between Feb 16 and Mar 15, 2015**, and 50 control geos received none. Because the dataset includes campaign cost, the ROAS estimate is computed from the data rather than assumed. Both CSVs are checked into `data/`, so no download is needed.
 
 ## Approach
 
