@@ -6,7 +6,11 @@ A marketing campaign ran in a set of treatment markets while comparable control 
 
 ## Data
 
-The analysis uses Google's public [matched_markets](https://github.com/google/matched_markets) geo experiment dataset: daily sales for **100 geos** (Jan 5 – Apr 7, 2015) from a designed geo experiment in which **50 treatment geos received $50,000 of ad spend between Feb 16 and Mar 15, 2015**, and 50 control geos received none. Because the spend data is real, the ROAS estimate is grounded in actual campaign cost rather than an assumption. Both CSVs are checked into `data/`, so no download is needed.
+The analysis uses the example geo experiment dataset published with Google's [matched_markets](https://github.com/google/matched_markets) measurement framework: daily sales for **100 geos** (Jan 5 – Apr 7, 2015) with a designed treatment/control assignment — **50 treatment geos received $50,000 of ad spend between Feb 16 and Mar 15, 2015**, and 50 control geos received none. Because the dataset includes campaign cost, the ROAS estimate is computed from the data rather than assumed. Both CSVs are checked into `data/`, so no download is needed.
+
+### Why this dataset?
+
+Real geo-incrementality tests run on advertiser sales data, which is proprietary — no company publishes theirs. That leaves three options for a public analysis: simulate your own data (the pipeline is then guaranteed to work by construction), retrofit a "natural experiment" onto public data like state-level sales (no randomized assignment, no spend data, and the intervention is chosen after the fact), or use one of the few reference datasets published by the teams that build geo-measurement tooling. This project takes the third path: the matched_markets example data is the rare public dataset with a *designed* experiment — randomized geo assignment, a defined spend window, and actual cost figures — which are exactly the properties the method requires. Simulation still appears in this project, but only where it belongs: in the validation chapter, where a known ground truth is the point.
 
 ## Approach
 
@@ -27,7 +31,7 @@ A **matched-market test** analyzed with **CausalImpact** (Google's Bayesian stru
 Two checks, covering both failure modes:
 
 - **Recovery test (simulation):** the pipeline was run on simulated data with known ground-truth lifts of 5%–30% — the only setting where the true answer is knowable. Estimates tracked the truth and the true lift fell inside the 95% credible interval in all five runs.
-- **Placebo (A/A) test on real data:** the pipeline was applied to a fake "treatment" group built from real control geos that received zero spend. It correctly found no effect (95% CI: −4.3% to +14.4%, straddling zero). An earlier placebo design with mismatched group composition produced a spurious positive — kept in the notebook as a documented failure mode, since a placebo test is only as valid as the comparability of its two sides.
+- **Placebo (A/A) test on real data:** the pipeline was applied to a fake "treatment" group built from real control geos that received zero spend. It correctly found no effect (95% CI: −4.3% to +14.4%, straddling zero). The point estimate (+4.8%) is nonzero because the placebo runs on half as many geos with a shallower covariate pool than the main analysis, which widens the interval — the test's job is interval coverage of zero, not a point estimate of exactly zero. An earlier placebo design with mismatched group composition produced a spurious *significant* positive — kept in the notebook as a documented failure mode, since a placebo test is only as valid as the comparability of its two sides.
 
 ![Method Validation: Recovery Test](data/fig4_recovery_test.png)
 
